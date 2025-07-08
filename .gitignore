@@ -42,4 +42,4 @@ pnpm-debug.log*
 .turbo
 
 # Vercel
-.vercel
+.vercelnode_modules/
