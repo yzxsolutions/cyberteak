@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add custom global styles here */
+html, body {
+  font-family: 'Inter', sans-serif; /* Example for Inter font */
+}
+
+.bg-grid-white\/\[0\.02\] {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.aurora-container {
+  width: 100%;
+  height: 100%;
+}
+
+
+.gradient-text-blue-center {
+  background: linear-gradient(to right, #ffffff 0%, #ffffff 20%, #00A1FF 50%, #ffffff 80%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes scroll-down {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 2s infinite;
+}
+
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
