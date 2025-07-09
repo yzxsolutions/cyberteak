@@ -7,7 +7,9 @@ import { servicesData } from '../_data/services';
 import ServiceCard from '../_components/ui/ServiceCard';
 import { Montserrat } from 'next/font/google';
 import Particles from '../_components/ui/Particles';
-import { Search, X, Loader2 } from 'lucide-react';
+import { Search, X, Loader2, ChevronRight, ArrowLeft, ArrowRight, ArrowUp } from 'lucide-react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -15,11 +17,16 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 });
 
+const SERVICES_PER_PAGE = 9;
+
 function ServicesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredServices, setFilteredServices] = useState(servicesData);
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const isSearching = searchQuery !== debouncedQuery;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   // Debounce the search query
   useEffect(() => {
@@ -49,11 +56,62 @@ function ServicesPage() {
       });
       setFilteredServices(newFilteredServices);
     }
+    setCurrentPage(1); // Reset to first page on new search
   }, [debouncedQuery]);
+
+  // Effect for Back to Top button visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  // Pagination logic
+  const indexOfLastService = currentPage * SERVICES_PER_PAGE;
+  const indexOfFirstService = indexOfLastService - SERVICES_PER_PAGE;
+  const currentServices = filteredServices.slice(indexOfFirstService, indexOfLastService);
+  const totalPages = Math.ceil(filteredServices.length / SERVICES_PER_PAGE);
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber < 1 || pageNumber > totalPages) return;
+    setCurrentPage(pageNumber);
+    const servicesSection = document.getElementById('services-grid');
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const getPaginationItems = () => {
+    if (totalPages <= 7) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    if (currentPage < 5) {
+      return [1, 2, 3, 4, 5, '...', totalPages];
+    }
+
+    if (currentPage > totalPages - 4) {
+      return [1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+    }
+
+    return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
+  };
+
+  const paginationItems = getPaginationItems();
 
   return (
     <>
-      <Header isVisible={true} />
+      <Header isScrolled={isScrolled} />
       <main className={`bg-black text-white ${montserrat.variable} font-sans min-h-screen`}>
         <section className="relative pt-28 md:pt-40 pb-16 md:pb-24">
           <div className="absolute inset-0 z-0">
@@ -67,6 +125,12 @@ function ServicesPage() {
             />
           </div>
           <div className="container mx-auto px-4 z-10 relative">
+            <nav className="flex items-center text-sm text-gray-400 mb-8">
+              <Link href="/" className="hover:text-blue-400 transition-colors">Home</Link>
+              <ChevronRight className="w-4 h-4 mx-2" />
+              <span className="text-white font-medium">Services</span>
+            </nav>
+
             <div className="text-center mb-12 md:mb-16">
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold gradient-text-blue-center mb-4">
                 Our Services
@@ -106,22 +170,90 @@ function ServicesPage() {
               </div>
             </div>
 
-            {filteredServices.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredServices.map(service => (
-                  <ServiceCard key={service.slug} service={service} highlight={debouncedQuery} />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-16">
-                <h3 className="text-2xl font-semibold text-gray-300">No Services Found</h3>
-                <p className="text-gray-400 mt-2">Your search for "{searchQuery}" did not match any services. Try a different keyword.</p>
-              </div>
-            )}
+            <div id="services-grid">
+              {filteredServices.length > 0 ? (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {currentServices.map(service => (
+                      <ServiceCard key={service.slug} service={service} highlight={debouncedQuery} />
+                    ))}
+                  </div>
+
+                  {totalPages > 1 && (
+                    <div className="flex justify-center items-center mt-16 space-x-2 sm:space-x-4">
+                      <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="flex items-center gap-2 px-3 py-2 bg-gray-800/50 border border-gray-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-700/50 transition-colors"
+                        aria-label="Previous page"
+                      >
+                        <ArrowLeft className="w-4 h-4" />
+                        <span className="hidden sm:inline">Previous</span>
+                      </button>
+
+                      <div className="flex items-center space-x-2">
+                        {paginationItems.map((page, index) =>
+                          page === '...' ? (
+                            <span
+                              key={`dots-${index}`}
+                              className="flex items-center justify-center w-10 h-10 text-gray-500"
+                            >
+                              ...
+                            </span>
+                          ) : (
+                            <button
+                              key={page}
+                              onClick={() => handlePageChange(page)}
+                              className={`w-10 h-10 rounded-lg transition-colors ${
+                                currentPage === page
+                                  ? 'bg-blue-600 text-white font-bold'
+                                  : 'bg-gray-800/50 border border-gray-700 text-gray-300 hover:bg-gray-700/50'
+                              }`}
+                            >
+                              {page}
+                            </button>
+                          )
+                        )}
+                      </div>
+
+                      <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="flex items-center gap-2 px-3 py-2 bg-gray-800/50 border border-gray-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-700/50 transition-colors"
+                        aria-label="Next page"
+                      >
+                        <span className="hidden sm:inline">Next</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="text-center py-16">
+                  <h3 className="text-2xl font-semibold text-gray-300">No Services Found</h3>
+                  <p className="text-gray-400 mt-2">Your search for "{searchQuery}" did not match any services. Try a different keyword.</p>
+                </div>
+              )}
+            </div>
           </div>
         </section>
         <Footer />
       </main>
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300"
+            aria-label="Back to top"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ArrowUp className="w-6 h-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </>
   );
 }

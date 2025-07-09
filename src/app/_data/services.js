@@ -1,4 +1,4 @@
-import { ShieldCheck, DatabaseZap, ServerCog, Users, FileCheck, Lock, Zap, Cloud, Key, Eye, Globe, Smartphone, Cpu, Mail, FileLock, BarChart, AlertTriangle, Code, Settings, RefreshCw, Search, HardDrive, Network, Monitor, Terminal, Radio, Bot, Bug, UserCheck, Shield } from 'lucide-react';
+import { ShieldCheck, DatabaseZap, ServerCog, Users, FileCheck, Lock, Zap, Cloud, Key, Eye, Globe, Smartphone, Cpu, Mail, FileLock, BarChart, AlertTriangle, Code, Settings, RefreshCw, Search, HardDrive, Network, Monitor, Terminal, Radio, Bot, Bug, UserCheck, Shield, BrainCircuit, Building, Briefcase } from 'lucide-react';
 
 export const servicesData = [
   {
@@ -632,4 +632,283 @@ export const servicesData = [
       { title: 'Patching', description: 'Applying rapid patches.' }
     ]
   },
+  {
+    slug: 'cyber-insurance-risk-assessments',
+    icon: FileCheck,
+    title: 'Cyber Insurance Risk Assessments',
+    description: 'Assess your cybersecurity posture to meet cyber insurance requirements and secure better premiums.',
+    link: '/services/cyber-insurance-risk-assessments',
+    longDescription: "Our Cyber Insurance Risk Assessments help you understand and improve your security posture to meet the stringent requirements of insurance underwriters. We identify gaps and provide a clear roadmap for remediation, helping you qualify for coverage and potentially lower your premiums.",
+    keyFeatures: [
+      'Insurance Policy Gap Analysis',
+      'Security Control Validation',
+      'Risk Quantification for Underwriters',
+      'Remediation Planning',
+      'Attestation Reporting'
+    ],
+    process: [
+      { title: 'Policy Review', description: 'Understanding the specific security requirements of your target insurance policy.' },
+      { title: 'Technical Assessment', description: 'Evaluating your security controls against policy requirements.' },
+      { title: 'Gap Identification', description: 'Identifying and prioritizing areas of non-compliance.' },
+      { title: 'Reporting & Guidance', description: 'Providing a detailed report and action plan to meet insurance standards.' }
+    ]
+  },
+  {
+    slug: 'mlsecops-consulting',
+    icon: Cpu,
+    title: 'MLSecOps Consulting',
+    description: 'Integrate security into your machine learning lifecycle, from data ingestion to model deployment.',
+    link: '/services/mlsecops-consulting',
+    longDescription: "Secure your AI and machine learning pipelines with our MLSecOps consulting. We help you build security into every stage of the ML lifecycle, protecting against data poisoning, model theft, and adversarial attacks, ensuring your AI initiatives are both innovative and secure.",
+    keyFeatures: [
+      'Secure AI/ML Pipeline Architecture',
+      'Adversarial Attack Simulation',
+      'Data Privacy and Integrity Checks',
+      'Secure Model Deployment and Monitoring',
+      'Compliance for AI Regulations'
+    ],
+    process: [
+      { title: 'Lifecycle Assessment', description: 'Reviewing your current ML development and deployment processes.' },
+      { title: 'Threat Modeling for AI', description: 'Identifying unique threats to your ML models and data.' },
+      { title: 'Toolchain Integration', description: 'Integrating security tools into your MLOps pipeline.' },
+      { title: 'Continuous Monitoring', description: 'Implementing monitoring for model and data security.' }
+    ]
+  },
+  {
+    slug: 'network-penetration-testing',
+    icon: Terminal,
+    title: 'Network Penetration Testing',
+    description: 'Identify and exploit vulnerabilities in your network infrastructure to assess real-world risk.',
+    link: '/services/network-penetration-testing',
+    longDescription: "Our network penetration testing simulates a real-world attack on your internal and external networks. We go beyond automated scanning to manually identify, verify, and exploit vulnerabilities, providing a true assessment of your network's security and resilience.",
+    keyFeatures: [
+      'External & Internal Network Testing',
+      'Firewall & Egress Testing',
+      'VPN & Remote Access Exploitation',
+      'Segmentation and Lateral Movement Testing',
+      'Actionable Remediation Reporting'
+    ],
+    process: [
+      { title: 'Scoping', description: 'Defining the scope and rules of engagement for the test.' },
+      { title: 'Information Gathering', description: 'Collecting intelligence on your network footprint.' },
+      { title: 'Vulnerability Exploitation', description: 'Attempting to gain unauthorized access by exploiting vulnerabilities.' },
+      { title: 'Reporting & Debrief', description: 'Delivering a comprehensive report with prioritized findings and a debrief session.' }
+    ]
+  },
+  {
+    slug: 'firewall-security-audit',
+    icon: Shield,
+    title: 'Firewall Security Audit',
+    description: 'Comprehensive review of your firewall configurations to ensure they are effectively protecting your network.',
+    link: '/services/firewall-security-audit',
+    longDescription: "A misconfigured firewall can leave your network exposed. Our experts conduct a thorough audit of your firewall rules, policies, and configurations to identify weaknesses, ensure compliance with best practices, and optimize your network's first line of defense.",
+    keyFeatures: [
+      'Rulebase Review and Optimization',
+      'Configuration Hardening',
+      'Access Control List (ACL) Analysis',
+      'Change Management Process Review',
+      'Compliance Checks (e.g., PCI DSS)'
+    ],
+    process: [
+      { title: 'Configuration Extraction', description: 'Securely gathering firewall configuration files.' },
+      { title: 'Automated & Manual Analysis', description: 'Using tools and expert review to identify issues.' },
+      { title: 'Risk Assessment', description: 'Evaluating the business impact of identified weaknesses.' },
+      { title: 'Reporting', description: 'Providing a detailed report with actionable hardening recommendations.' }
+    ]
+  },
+  {
+    slug: 'ai-ml-penetration-testing',
+    icon: BrainCircuit,
+    title: 'AI/ML Penetration Testing',
+    description: 'Assess the security of your AI and Machine Learning models against unique threats like adversarial attacks.',
+    link: '/services/ai-ml-penetration-testing',
+    longDescription: "Traditional security testing doesn't cover the unique vulnerabilities of AI/ML systems. We perform specialized penetration testing to assess your models for risks like data poisoning, model evasion, and inference attacks, ensuring the integrity and reliability of your AI.",
+    keyFeatures: [
+      'Adversarial Attack Simulation',
+      'Data Poisoning Tests',
+      'Model Evasion and Inversion Testing',
+      'Input Validation and Sanitization Review',
+      'Secure AI Development Lifecycle Review'
+    ],
+    process: [
+      { title: 'Model & Data Scoping', description: 'Understanding the AI model, its training data, and its function.' },
+      { title: 'Threat Modeling', description: 'Identifying potential AI-specific attack vectors.' },
+      { title: 'Attack Simulation', description: 'Executing simulated adversarial attacks to test model resilience.' },
+      { title: 'Reporting & Mitigation', description: 'Detailing vulnerabilities and providing guidance on securing the model.' }
+    ]
+  },
+  {
+    slug: 'iot-penetration-testing',
+    icon: Cpu,
+    title: 'IoT Penetration Testing',
+    description: 'Uncover vulnerabilities in your IoT devices, from firmware to communication protocols.',
+    link: '/services/iot-penetration-testing',
+    longDescription: "Our IoT penetration testing covers the entire ecosystem of your connected devices. We analyze hardware, firmware, mobile applications, and communication protocols to identify and mitigate security risks unique to the Internet of Things.",
+    keyFeatures: [
+      'Hardware Teardown and Analysis',
+      'Firmware Reverse Engineering',
+      'Radio Communication Analysis (Zigbee, Z-Wave, BLE)',
+      'API and Cloud Backend Testing',
+      'Mobile Application Control Testing'
+    ],
+    process: [
+      { title: 'Device Reconnaissance', description: 'Understanding the device and its communication channels.' },
+      { title: 'Firmware & Hardware Analysis', description: 'Extracting and analyzing firmware and hardware for vulnerabilities.' },
+      { title: 'Dynamic Testing', description: 'Testing the device in operation for exploitable flaws.' },
+      { title: 'Comprehensive Reporting', description: 'Providing a holistic view of vulnerabilities across the IoT ecosystem.' }
+    ]
+  },
+  {
+    slug: 'aws-hardening',
+    icon: Cloud,
+    title: 'AWS Hardening',
+    description: 'Secure your AWS environment based on industry best practices and CIS benchmarks.',
+    link: '/services/aws-hardening',
+    longDescription: "We provide expert AWS security hardening services to reduce your attack surface. Our process involves a thorough review of your AWS accounts, IAM policies, network configurations (VPCs, Security Groups), and services (S3, EC2, Lambda) to implement security best practices.",
+    keyFeatures: [
+      'IAM Policy Tightening',
+      'Security Group and NACL Optimization',
+      'S3 Bucket Security',
+      'CloudTrail and GuardDuty Configuration',
+      'CIS AWS Foundations Benchmark Alignment'
+    ],
+    process: [
+      { title: 'Discovery', description: 'Auditing your current AWS environment and configurations.' },
+      { title: 'Analysis & Recommendations', description: 'Identifying security gaps and providing a hardening plan.' },
+      { title: 'Implementation', description: 'Applying recommended security configurations and controls.' },
+      { title: 'Validation', description: 'Verifying that the environment is hardened and secure.' }
+    ]
+  },
+  {
+    slug: 'azure-hardening',
+    icon: Cloud,
+    title: 'Azure Hardening',
+    description: 'Enhance the security of your Microsoft Azure environment with our expert hardening services.',
+    link: '/services/azure-hardening',
+    longDescription: "Secure your Azure infrastructure against common threats. We review your Azure Active Directory, network security groups, storage accounts, and virtual machines to implement security best practices and align with the CIS Azure Foundations Benchmark.",
+    keyFeatures: [
+      'Azure AD Security Review',
+      'Network Security Group (NSG) Optimization',
+      'Secure Storage Configuration',
+      'Azure Security Center Configuration',
+      'CIS Azure Foundations Benchmark Alignment'
+    ],
+    process: [
+      { title: 'Discovery', description: 'Auditing your current Azure environment and configurations.' },
+      { title: 'Analysis & Recommendations', description: 'Identifying security gaps and providing a hardening plan.' },
+      { title: 'Implementation', description: 'Applying recommended security configurations and controls.' },
+      { title: 'Validation', description: 'Verifying that the environment is hardened and secure.' }
+    ]
+  },
+  {
+    slug: 'gcp-hardening',
+    icon: Cloud,
+    title: 'GCP Hardening',
+    description: 'Strengthen the security posture of your Google Cloud Platform environment.',
+    link: '/services/gcp-hardening',
+    longDescription: "Our GCP hardening service helps you secure your Google Cloud resources. We assess your IAM policies, VPC firewall rules, Cloud Storage permissions, and other GCP services to ensure they are configured securely according to best practices.",
+    keyFeatures: [
+      'Cloud IAM Best Practices',
+      'VPC Firewall Rule Review',
+      'Secure Cloud Storage Configuration',
+      'Security Command Center Setup',
+      'CIS GCP Foundations Benchmark Alignment'
+    ],
+    process: [
+      { title: 'Discovery', description: 'Auditing your current GCP environment and configurations.' },
+      { title: 'Analysis & Recommendations', description: 'Identifying security gaps and providing a hardening plan.' },
+      { title: 'Implementation', description: 'Applying recommended security configurations and controls.' },
+      { title: 'Validation', description: 'Verifying that the environment is hardened and secure.' }
+    ]
+  },
+  {
+    slug: 'container-security',
+    icon: HardDrive,
+    title: 'Container Security',
+    description: 'Secure your containerized environments, from image scanning to runtime protection.',
+    link: '/services/container-security',
+    longDescription: "We provide end-to-end security for your container lifecycle. This includes scanning container images for vulnerabilities, securing your container orchestration platform (like Kubernetes), and implementing runtime security to detect and respond to threats in running containers.",
+    keyFeatures: [
+      'Container Image Vulnerability Scanning',
+      'Kubernetes Security Posture Management (KSPM)',
+      'Runtime Threat Detection for Containers',
+      'Network Policy and Pod Security Policies',
+      'CIS Docker & Kubernetes Benchmarks'
+    ],
+    process: [
+      { title: 'Pipeline Assessment', description: 'Reviewing your CI/CD pipeline for image building and deployment.' },
+      { title: 'Orchestrator Configuration Review', description: 'Auditing your Kubernetes or container orchestrator setup.' },
+      { title: 'Image & Runtime Scanning', description: 'Implementing tools to scan for vulnerabilities and runtime threats.' },
+      { title: 'Hardening & Monitoring', description: 'Applying security policies and setting up continuous monitoring.' }
+    ]
+  },
+  {
+    slug: 'enterprise-security',
+    icon: Building,
+    title: 'Enterprise Security',
+    description: 'Holistic security solutions to protect your entire enterprise from sophisticated threats.',
+    link: '/services/enterprise-security',
+    longDescription: "Our Enterprise Security services provide a comprehensive, strategic approach to protecting your organization. We work with you to develop a robust security program that covers people, processes, and technology, ensuring a resilient defense against a wide range of cyber threats.",
+    keyFeatures: [
+      'Security Program Development',
+      'Enterprise Risk Management',
+      'Security Architecture Design',
+      'Threat and Vulnerability Management Program',
+      'Security Operations Center (SOC) Strategy'
+    ],
+    process: [
+      { title: 'Maturity Assessment', description: 'Evaluating your current security program against industry frameworks.' },
+      { title: 'Strategy & Roadmap Development', description: 'Creating a multi-year plan to achieve your security goals.' },
+      { title: 'Program Implementation', description: 'Assisting with the implementation of security controls and processes.' },
+      { title: 'Continuous Improvement', description: 'Regularly reviewing and optimizing your security posture.' }
+    ]
+  },
+  {
+    slug: 'virtual-ciso-services',
+    icon: Briefcase,
+    title: 'Virtual CISO Services',
+    description: 'Access executive-level security leadership and strategic guidance without the cost of a full-time CISO.',
+    link: '/services/virtual-ciso-services',
+    longDescription: "Our Virtual CISO (vCISO) service provides you with a dedicated security expert to guide your strategy, manage risk, and ensure compliance. Get the benefit of high-level cybersecurity expertise on a flexible, as-needed basis to mature your security program.",
+    keyFeatures: [
+      'Security Strategy and Roadmap',
+      'Risk Management and Compliance Oversight',
+      'Security Budget Planning',
+      'Board and Executive Reporting',
+      'Incident Response Leadership'
+    ],
+    process: [
+      { title: 'Onboarding & Goal Setting', description: 'Understanding your business and defining security objectives.' },
+      { title: 'Ongoing Strategic Guidance', description: 'Providing regular leadership meetings and advisory.' },
+      { title: 'Program Management', description: 'Overseeing security projects and initiatives.' },
+      { title: 'Reporting', description: 'Communicating security posture and progress to stakeholders.' }
+    ]
+  }
+];
+
+const slugify = (text) => text.toLowerCase().replace(/[\s/]+/g, '-').replace(/[()]/g, '');
+
+export const headerServices = [
+  { title: 'Cyber Insurance Risk Assessments', slug: slugify('Cyber Insurance Risk Assessments'), icon: FileCheck },
+  { title: 'MLSecOps Consulting', slug: slugify('MLSecOps Consulting'), icon: Cpu },
+  { title: 'Network Security', slug: 'network-security', icon: DatabaseZap },
+  { title: 'Network Penetration Testing', slug: slugify('Network Penetration Testing'), icon: Terminal },
+  { title: 'Firewall Security Audit', slug: slugify('Firewall Security Audit'), icon: Shield },
+  { title: 'Application Security', slug: 'application-security', icon: Monitor },
+  { title: 'AI/ML Penetration Testing', slug: slugify('AI/ML Penetration Testing'), icon: BrainCircuit },
+  { title: 'IoT Penetration Testing', slug: slugify('IoT Penetration Testing'), icon: Cpu },
+  { title: 'Web Application Penetration Testing', slug: 'web-security', icon: ShieldCheck },
+  { title: 'Mobile App Penetration Testing', slug: 'mobile-security', icon: Smartphone },
+  { title: 'API Penetration Testing', slug: 'api-security', icon: Network },
+  { title: 'Secure Source Code Review', slug: 'secure-code-review', icon: Code },
+  { title: 'DevSecOps', slug: 'devsecops', icon: Bot },
+  { title: 'Cloud Security', slug: 'cloud-security', icon: ServerCog },
+  { title: 'AWS Hardening', slug: slugify('AWS Hardening'), icon: Cloud },
+  { title: 'Azure Hardening', slug: slugify('Azure Hardening'), icon: Cloud },
+  { title: 'GCP Hardening', slug: slugify('GCP Hardening'), icon: Cloud },
+  { title: 'Container Security', slug: slugify('Container Security'), icon: HardDrive },
+  { title: 'Enterprise Security', slug: slugify('Enterprise Security'), icon: Building },
+  { title: 'Virtual CISO Services', slug: slugify('Virtual CISO Services'), icon: Briefcase },
+  { title: 'Security Architecture Review', slug: 'security-architecture-review', icon: HardDrive },
+  { title: 'Phishing Simulations', slug: 'social-engineering', icon: Mail },
 ];

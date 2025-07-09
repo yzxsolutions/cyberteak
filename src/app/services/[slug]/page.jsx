@@ -1,12 +1,12 @@
 
-
 import { notFound } from 'next/navigation';
 import { servicesData } from '../../_data/services';
 import Header from '../../_components/common/Header';
 import Footer from '../../_components/common/Footer';
-import { CheckCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle, ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import Particles from '../../_components/ui/Particles';
+import Image from 'next/image';
 
 // This function can be used by Next.js to pre-render all service pages at build time
 export async function generateStaticParams() {
@@ -15,9 +15,26 @@ export async function generateStaticParams() {
   }));
 }
 
+
+export async function generateMetadata({ params }) {
+    const service = servicesData.find((s) => s.slug === params.slug);
+    if (!service) {
+        return {
+            title: 'Service Not Found',
+        };
+    }
+    return {
+        title: `${service.title} | CyberTeak`,
+        description: service.description,
+    };
+}
+
+
 export default function ServiceDetailPage({ params }) {
   const { slug } = params;
   const service = servicesData.find((s) => s.slug === slug);
+
+
 
   if (!service) {
     notFound();
@@ -27,7 +44,7 @@ export default function ServiceDetailPage({ params }) {
 
   return (
     <>
-      <Header isVisible={true} />
+      <Header isVisible={true}  />
       <main className="bg-black text-white font-sans">
         <section className="relative pt-40 pb-24 overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -41,6 +58,13 @@ export default function ServiceDetailPage({ params }) {
             />
           </div>
           <div className="container mx-auto px-4 z-10 relative">
+             <nav className="flex items-center text-sm text-gray-400 mb-8">
+              <Link href="/" className="hover:text-blue-400 transition-colors">Home</Link>
+              <ChevronRight className="w-4 h-4 mx-2" />
+              <Link href="/services" className="hover:text-blue-400 transition-colors">Services</Link>
+              <ChevronRight className="w-4 h-4 mx-2" />
+              <span className="text-white font-medium">{service.title}</span>
+            </nav>
             <div className="flex flex-col lg:flex-row items-center gap-8 mb-16">
               <div className="flex-shrink-0 w-24 h-24 flex items-center justify-center bg-blue-900/50 rounded-2xl border border-blue-500/30">
                 <Icon className="w-12 h-12 text-blue-300" />
@@ -107,9 +131,11 @@ export default function ServiceDetailPage({ params }) {
             </div>
           </div>
         </section>
+
+       
+
         <Footer />
       </main>
     </>
   );
 }
-

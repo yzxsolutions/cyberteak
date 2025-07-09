@@ -1,8 +1,6 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/(marketing)/contact/page": "app/(marketing)/contact/page.js",
   "/(marketing)/page": "app/(marketing)/page.js",
-  "/icon.svg/route": "app/icon.svg/route.js",
-  "/services/[slug]/page": "app/services/[slug]/page.js",
-  "/services/page": "app/services/page.js"
+  "/(marketing)/contact/page": "app/(marketing)/contact/page.js",
+  "/icon.svg/route": "app/icon.svg/route.js"
 }

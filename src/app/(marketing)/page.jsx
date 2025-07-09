@@ -3,15 +3,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import Aurora from '../_components/ui/Aurora';
-import { Montserrat } from 'next/font/google';
+import { Montserrat } from 'next/font/google'; 
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Header from '../_components/common/Header';
 import Link from 'next/link';
 import Footer from '../_components/common/Footer';
 import CardSwap, { Card } from '../_components/ui/CardSwap'; // prettier-ignore
-import { ArrowRight, ArrowLeft, SearchCheckIcon, ShieldCheck, DatabaseZap, Users, ServerCog } from 'lucide-react';
+import { ArrowRight, ArrowLeft, ShieldCheck, DatabaseZap, Users, ServerCog, ArrowUp } from 'lucide-react';
 import Particles from '../_components/ui/Particles';
 import { servicesData } from '../_data/services';
+import { cardData, productsData, whyChooseUsData } from '../_data/marketing';
 import ServiceCard from '../_components/ui/ServiceCard';
 
 // Configure the Montserrat font
@@ -23,46 +25,15 @@ const montserrat = Montserrat({
 
 export default function Page() {
   const [activeCardIndex, setActiveCardIndex] = useState(0);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const containerRef = useRef(null);
   const imageRef = useRef(null);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const contentRef = useRef(null);
   const servicesContainerRef = useRef(null);
-
-  const cardData = [
-    {
-      image: "/images/security.jpg",
-      title: "Advanced Threat Detection",
-      description: "Our system uses machine learning to detect and neutralize threats before they can impact your business. We provide real-time analysis and alerts.",
-      icon: <SearchCheckIcon className="w-10 h-10 text-blue-400" />,
-      cta: {
-        text: "Learn More",
-        link: "/services/threat-detection"
-      }
-    },
-    {
-      image: "/images/cyber-lock.png",
-      title: "Data Encryption & Privacy",
-      description: "Protect your sensitive data with end-to-end encryption. We ensure your data remains confidential and compliant with global privacy regulations.",
-      icon: <SearchCheckIcon className="w-10 h-10 text-blue-400" />,
-      cta: {
-        text: "Explore Encryption",
-        link: "/services/encryption"
-      }
-    },
-    {
-      image: "/images/team.png",
-      title: "24/7 Security Operations",
-      description: "Our dedicated Security Operations Center (SOC) provides around-the-clock monitoring and rapid incident response to keep your operations secure.",
-      icon: <SearchCheckIcon className="w-10 h-10 text-blue-400" />,
-      cta: {
-        text: "Discover Our SOC",
-        link: "/services/soc"
-      }
-    }
-  ];
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     // --- GSAP Intro Animation ---
@@ -87,26 +58,30 @@ export default function Page() {
     );
 
     // --- Locomotive Scroll Initialization ---
-    let scroll;
     // We need to check for containerRef.current to avoid errors on fast refresh
     if (containerRef.current) {
       import('locomotive-scroll').then((locomotiveModule) => {
-        scroll = new locomotiveModule.default({
+        scrollRef.current = new locomotiveModule.default({
           el: containerRef.current,
           smooth: true,
           lerp: 0.08,
         });
 
         // Listen for scroll events to toggle header visibility
-        scroll.on('scroll', (instance) => {
-          setIsHeaderVisible(instance.scroll.y > 100);
+        scrollRef.current.on('scroll', (instance) => {
+          const scrollY = instance.scroll.y;
+          setIsScrolled(scrollY > 50);
+          setShowBackToTop(scrollY > 400);
         });
       });
     }
 
     // --- Cleanup ---
     return () => {
-      if (scroll) scroll.destroy();
+      if (scrollRef.current) {
+        scrollRef.current.destroy();
+        scrollRef.current = null;
+      }
       tl.kill();
     };
   }, []);
@@ -123,6 +98,12 @@ export default function Page() {
   }, [activeCardIndex]);
 
   const activeCard = cardData[activeCardIndex];
+
+  const scrollToTop = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo(0);
+    }
+  };
 
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -165,7 +146,7 @@ export default function Page() {
 
   return (
     <>
-      <Header isVisible={isHeaderVisible} />
+      <Header isScrolled={isScrolled} />
       <main ref={containerRef} data-scroll-container className="bg-black">
       <section data-scroll-section className="relative h-screen w-full overflow-hidden">
         {/* Optional: Adds a subtle grid background */}
@@ -247,6 +228,101 @@ export default function Page() {
                 </Card>
               ))}
             </CardSwap>
+          </div>
+        </div>
+      </section>
+
+       {/* Our Products Section */}
+        <section id="products" data-scroll-section className="py-24 bg-black text-white">
+          <div className="container mx-auto px-4">
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold text-center mb-20 gradient-text-blue-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6 }}
+            >
+              Our Products
+            </motion.h2>
+            <div className="space-y-24">
+              {productsData.map((product, index) => (
+                <div
+                  key={product.title}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center"
+                >
+                  <motion.div
+                    className={`relative w-full h-96 rounded-2xl overflow-hidden shadow-lg shadow-blue-500/20 group transition-shadow duration-500 ease-out hover:shadow-2xl hover:shadow-blue-500/30 ${
+                      index % 2 === 0 ? 'md:order-1' : 'md:order-2'
+                    }`}
+                    initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
+                  >
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      layout="fill"
+                      objectFit="cover"
+                      className="transition-transform duration-500 ease-out group-hover:scale-105"
+                    />
+                  </motion.div>
+                  <motion.div
+                    className={index % 2 === 0 ? 'md:order-2' : 'md:order-1'}
+                    initial={{ opacity: 0, x: index % 2 === 0 ? 100 : -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1], delay: 0.15 }}
+                  >
+                    <h3 className="text-3xl font-bold mb-4 gradient-text-blue-right">{product.title}</h3>
+                    <p className="text-gray-300 leading-relaxed">{product.description}</p>
+                  </motion.div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+      {/* Why Choose Us Section */}
+      <section id="why-us" data-scroll-section className="py-24 bg-black text-white">
+        <div className="container mx-auto px-4">
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold text-center mb-4 gradient-text-blue-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6 }}
+          >
+            Why Choose CyberTeak?
+          </motion.h2>
+          <motion.p
+            className="text-lg text-gray-300 text-center max-w-3xl mx-auto mb-20"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            We go beyond traditional cybersecurity, offering a predictive, comprehensive, and accessible platform to secure your digital world.
+          </motion.p>
+          <div className="max-w-4xl mx-auto divide-y divide-white/10">
+            {whyChooseUsData.map((feature, index) => (
+              <motion.div
+                key={index}
+                className="flex flex-col sm:flex-row items-start gap-8 py-12 first:pt-0 last:pb-0"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className="flex-shrink-0 w-16 h-16 flex items-center justify-center bg-blue-900/50 rounded-2xl border border-blue-500/30 mx-auto sm:mx-0">
+                  {feature.icon}
+                </div>
+                <div className="text-center sm:text-left flex-1">
+                  <h3 className="text-xl font-bold mb-2 text-white">{feature.title}</h3>
+                  <p className="text-gray-400">{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -348,6 +424,21 @@ export default function Page() {
 
       <Footer />
       </main>
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300"
+            aria-label="Back to top"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ArrowUp className="w-6 h-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </>
   );
 }
